@@ -1,23 +1,38 @@
 import 'package:get/get.dart';
+import '../../../data/biodata_model.dart';
 
 class BiodataController extends GetxController {
-  //TODO: Implement BiodataController
+  // Menggunakan Rx untuk variabel yang reaktif
+  final nama = ''.obs;
+  final jenisKelamin = ''.obs;
+  final agama = ''.obs;
+  final tanggalLahir = DateTime.now().obs;
+  final alamat = ''.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  // Fungsi untuk mengubah nilai
+  void setNama(String value) => nama.value = value;
+  void setJenisKelamin(String? value) {
+    if (value != null) jenisKelamin.value = value;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void setAgama(String? value) {
+    if (value != null) agama.value = value;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  void setTanggalLahir(DateTime value) =>
+      tanggalLahir.value = value;
+  void setAlamat(String value) => alamat.value = value;
 
-  void increment() => count.value++;
+  // Fungsi untuk submit formulir
+  void submitForm() {
+    // Proses data formulir di sini atau navigasikan ke halaman Lain
+    final formData = BiodataModel(
+      nama: nama.value,
+      jenisKelamin: jenisKelamin.value,
+      agama: agama.value,
+      tanggalLahir: tanggalLahir.value,
+      alamat: alamat.value,
+    );
+    Get.toNamed('/output', arguments: formData);
+  }
 }
